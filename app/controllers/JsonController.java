@@ -22,7 +22,7 @@ public class JsonController extends Controller {
         }else{
             model.merge();
         }
-        renderJSON(model, gson);
+        renderJSON(model);
     }
 
     public static void listMarkdown(){
