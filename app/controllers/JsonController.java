@@ -6,8 +6,6 @@ import play.mvc.Controller;
 
 import java.util.List;
 
-import static play.db.jpa.GenericModel.findById;
-
 /**
  * Created by jesus on 28/11/16.
  */
@@ -16,11 +14,16 @@ public class JsonController extends Controller {
     public static void createMarkdown(){
         String json = params.get("json");
         Gson gson = new Gson();
+
         MarkdownModel model = gson.fromJson(json, MarkdownModel.class);
         if (model.id == null){
             model.save();
         }else{
-            model.merge();
+            MarkdownModel actual = MarkdownModel.findById(model.id);
+            actual.title = model.title;
+            actual.body = model.body;
+            actual.merge();
+            model = actual;
         }
         renderJSON(model);
     }
@@ -31,7 +34,7 @@ public class JsonController extends Controller {
     }
 
     public static void showMarkdown(Long id){
-        MarkdownModel mk = findById(id);
+        MarkdownModel mk = MarkdownModel.findById(id);
         renderJSON(mk);
     }
 
