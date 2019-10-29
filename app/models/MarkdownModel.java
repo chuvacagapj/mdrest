@@ -8,6 +8,7 @@ import javax.persistence.Lob;
 
 /**
  * Created by jesus on 28/11/16.
+ * Utilizado como ejemplo para las cosas de git
  */
 @Entity
 public class MarkdownModel extends Model{
